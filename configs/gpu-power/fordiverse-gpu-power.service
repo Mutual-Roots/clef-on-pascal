@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Applies the default GPU power profile (GPU_POWER_PROFILE_DEFAULT in gpu.conf) at boot.
+# Install: /etc/systemd/system/; gpu_power.sh goes to /usr/local/lib/fordiverse-gpu/.
+[Unit]
+Description=GPU power profile at boot (default profile from /etc/fordiverse/gpu/gpu.conf)
+Documentation=file:///usr/local/lib/fordiverse-gpu/gpu_power.sh
+After=nvidia-persistenced.service systemd-modules-load.service
+Wants=nvidia-persistenced.service
+ConditionPathExists=/etc/fordiverse/gpu/gpu.conf
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+RuntimeDirectory=fordiverse-gpu
+RuntimeDirectoryPreserve=yes
+ExecStart=/usr/local/lib/fordiverse-gpu/gpu_power.sh apply-default
+
+[Install]
+WantedBy=multi-user.target

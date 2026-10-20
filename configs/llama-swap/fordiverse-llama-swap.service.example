@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# systemd --user unit for llama-swap with config.yaml and host.env from this folder.
+# Install: ~/.config/systemd/user/fordiverse-llama-swap.service; adjust ExecStart to where the
+# llama-swap binary lives. Loopback only (127.0.0.1:8470); no API keys are configured.
+[Unit]
+Description=llama-swap: Clef decision models on the GPU (loopback 127.0.0.1:8470)
+Documentation=file://%h/.config/fordiverse/llama-swap/config.yaml
+
+[Service]
+Type=simple
+EnvironmentFile=%h/.config/fordiverse/llama-swap/host.env
+ExecStart=%h/.local/bin/llama-swap -config %h/.config/fordiverse/llama-swap/config.yaml -listen 127.0.0.1:8470
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=40
+NoNewPrivileges=true
+PrivateTmp=true
+UMask=0027
+
+[Install]
+WantedBy=default.target

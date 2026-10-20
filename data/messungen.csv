@@ -1,0 +1,62 @@
+datum_utc,lauf_id,modell,quant,backend,ngl,test,t_s,streuung,vram_mib,sm_mhz,leistung_w,leistungsgrenze_w,x_zustand,treiber,llama_cpp_build,quelle
+2026-10-19T23:02:56Z,A-flash-gpu,clef 9B,Q8_0,CUDA,99,pp512,853.96,0.59,9178,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/A-flash-gpu.txt
+2026-10-19T23:02:56Z,A-flash-gpu,clef 9B,Q8_0,CUDA,99,pp2048,875.10,0.56,9178,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/A-flash-gpu.txt
+2026-10-19T23:13:12Z,A2,clef 9B,Q8_0,CUDA,99,pp512,992.46,1.67,,1746,250.2,250,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/A2.txt
+2026-10-19T23:13:12Z,A2,clef 9B,Q8_0,CUDA,99,pp2048,996.85,0.97,,1746,250.2,250,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/A2.txt
+2026-10-19T23:03:09Z,B-27b-cpu,clef 27B,Q4_K - Medium,CPU,0,pp512,19.57,0.38,294,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/B-27b-cpu.txt
+2026-10-19T23:03:09Z,B-27b-cpu,clef 27B,Q4_K - Medium,CPU,0,pp2048,19.17,0.07,294,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/B-27b-cpu.txt
+2026-10-19T23:10:04Z,C-27b-gpu-rechenwerk,clef 27B,Q4_K - Medium,CUDA,0,pp512,149.94,0.03,1352,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/C-27b-gpu-rechenwerk.txt
+2026-10-19T23:10:04Z,C-27b-gpu-rechenwerk,clef 27B,Q4_K - Medium,CUDA,0,pp2048,216.68,0.00,1352,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/C-27b-gpu-rechenwerk.txt
+2026-10-19T23:10:46Z,D-27b-ngl16,clef 27B,Q4_K - Medium,CUDA,16,pp512,166.00,0.04,6272,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/D-27b-ngl16.txt
+2026-10-19T23:10:46Z,D-27b-ngl16,clef 27B,Q4_K - Medium,CUDA,16,pp2048,224.93,0.01,6272,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/D-27b-ngl16.txt
+2026-10-19T23:11:27Z,D-27b-ngl24,clef 27B,Q4_K - Medium,CUDA,24,pp512,175.81,0.02,8338,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/D-27b-ngl24.txt
+2026-10-19T23:11:27Z,D-27b-ngl24,clef 27B,Q4_K - Medium,CUDA,24,pp2048,229.36,0.00,8338,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/D-27b-ngl24.txt
+2026-10-19T23:12:06Z,D-27b-ngl32,clef 27B,Q4_K - Medium,CUDA,32,pp512,186.96,0.02,10402,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/D-27b-ngl32.txt
+2026-10-19T23:12:06Z,D-27b-ngl32,clef 27B,Q4_K - Medium,CUDA,32,pp2048,234.00,0.00,10402,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/D-27b-ngl32.txt
+2026-10-19T23:53:13Z,boost-x-1-greeter-lange,clef 9B,Q8_0,CUDA,99,pp2048,874.73,0.08,,1480,164.8,,greeter-lang,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/boost-x/1-greeter-lange.txt
+2026-10-19T23:53:36Z,boost-x-2-ohne-x,clef 9B,Q8_0,CUDA,99,pp2048,1001.50,0.27,,1746,232.2,,kein-x,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/boost-x/2-ohne-x.txt
+2026-10-19T23:54:08Z,boost-x-3-x-frisch-20s,clef 9B,Q8_0,CUDA,99,pp2048,999.36,0.56,,1746,248.0,,greeter-frisch,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/boost-x/3-x-frisch-20s.txt
+2026-10-19T23:56:01Z,boost-x-4-x-nach-120s,clef 9B,Q8_0,CUDA,99,pp2048,1003.21,1.59,,1746,239.0,,greeter-lang,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/boost-x/4-x-nach-120s.txt
+2026-10-19T23:31:37Z,paar-C2-27b-ngl0,clef 27B,Q4_K - Medium,CUDA,0,pp512,150.22,0.01,1168,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/C2-27b-ngl0.txt
+2026-10-19T23:31:37Z,paar-C2-27b-ngl0,clef 27B,Q4_K - Medium,CUDA,0,pp2048,216.80,0.09,1168,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/C2-27b-ngl0.txt
+2026-10-19T23:32:19Z,paar-D2-27b-ngl32,clef 27B,Q4_K - Medium,CUDA,32,pp512,187.02,0.01,10218,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/D2-27b-ngl32.txt
+2026-10-19T23:32:19Z,paar-D2-27b-ngl32,clef 27B,Q4_K - Medium,CUDA,32,pp2048,234.07,0.01,10218,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/D2-27b-ngl32.txt
+,paar-PAAR-27b,clef 27B,Q4_K - Medium,CUDA,0,pp512,101.56,33.58,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-27b.txt
+,paar-PAAR-27b,clef 27B,Q4_K - Medium,CUDA,0,pp2048,122.71,3.30,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-27b.txt
+,paar-PAAR-flash-1,clef 9B,Q8_0,CUDA,99,pp512,562.41,0.06,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-flash-1.txt
+,paar-PAAR-flash-1,clef 9B,Q8_0,CUDA,99,pp2048,583.05,7.81,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-flash-1.txt
+,paar-PAAR-flash-2,clef 9B,Q8_0,CUDA,99,pp512,449.31,1.53,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-flash-2.txt
+,paar-PAAR-flash-2,clef 9B,Q8_0,CUDA,99,pp2048,469.38,9.86,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-flash-2.txt
+,paar-PAAR-flash-3,clef 9B,Q8_0,CUDA,99,pp512,446.28,4.62,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-flash-3.txt
+,paar-PAAR-flash-3,clef 9B,Q8_0,CUDA,99,pp2048,471.82,11.03,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-flash-3.txt
+,paar-PAAR-flash-4,clef 9B,Q8_0,CUDA,99,pp512,447.80,6.10,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-flash-4.txt
+,paar-PAAR-flash-4,clef 9B,Q8_0,CUDA,99,pp2048,470.55,12.27,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-flash-4.txt
+,paar-PAAR-flash-5,clef 9B,Q8_0,CUDA,99,pp512,448.49,0.44,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-flash-5.txt
+,paar-PAAR-flash-5,clef 9B,Q8_0,CUDA,99,pp2048,464.24,0.94,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-flash-5.txt
+,paar-PAAR-flash-6,clef 9B,Q8_0,CUDA,99,pp512,597.90,206.45,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-flash-6.txt
+,paar-PAAR-flash-6,clef 9B,Q8_0,CUDA,99,pp2048,873.79,0.00,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/paar/PAAR-flash-6.txt
+2026-10-19T23:50:41Z,repeat-lauf-1,clef 9B,Q8_0,CUDA,99,pp512,855.12,0.34,,1480,163.9,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/repeat/lauf-1.txt
+2026-10-19T23:50:41Z,repeat-lauf-1,clef 9B,Q8_0,CUDA,99,pp2048,874.95,0.18,,1480,163.9,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/repeat/lauf-1.txt
+2026-10-19T23:50:58Z,repeat-lauf-2,clef 9B,Q8_0,CUDA,99,pp512,854.80,0.20,,1480,167.0,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/repeat/lauf-2.txt
+2026-10-19T23:50:58Z,repeat-lauf-2,clef 9B,Q8_0,CUDA,99,pp2048,874.09,0.79,,1480,167.0,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/repeat/lauf-2.txt
+2026-10-19T23:51:16Z,repeat-lauf-3,clef 9B,Q8_0,CUDA,99,pp512,854.46,0.39,,1480,167.9,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/repeat/lauf-3.txt
+2026-10-19T23:51:16Z,repeat-lauf-3,clef 9B,Q8_0,CUDA,99,pp2048,874.25,0.23,,1480,167.9,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/repeat/lauf-3.txt
+2026-10-19T23:49:14Z,vulkan-cuda-C-flash-q8,clef 9B,Q8_0,CUDA,99,pp512,853.18,0.60,8997,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/vulkan-cuda/C-flash-q8.txt
+2026-10-19T23:49:14Z,vulkan-cuda-C-flash-q8,clef 9B,Q8_0,CUDA,99,pp2048,875.13,0.10,8997,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/vulkan-cuda/C-flash-q8.txt
+2026-10-19T23:48:13Z,vulkan-cuda-V-flash-q8,clef 9B,Q8_0,Vulkan,99,pp512,134.34,0.14,8813,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/vulkan-cuda/V-flash-q8.txt
+2026-10-19T23:48:13Z,vulkan-cuda-V-flash-q8,clef 9B,Q8_0,Vulkan,99,pp2048,141.58,0.05,8813,,,,unbekannt,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/vulkan-cuda/V-flash-q8.txt
+2026-10-19T23:56:31Z,power-sweep-pl125,clef 9B,Q8_0,CUDA,99,pp2048,548.288341,2.379106,,898,124.3,125,kein-x,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/power-sweep/pl125.bench.csv
+2026-10-19T23:56:31Z,power-sweep-pl150,clef 9B,Q8_0,CUDA,99,pp2048,732.743122,3.269701,,1240,149.3,150,kein-x,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/power-sweep/pl150.bench.csv
+2026-10-19T23:56:31Z,power-sweep-pl175,clef 9B,Q8_0,CUDA,99,pp2048,875.628386,0.471368,,1480,171.5,175,kein-x,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/power-sweep/pl175.bench.csv
+2026-10-19T23:56:31Z,power-sweep-pl200,clef 9B,Q8_0,CUDA,99,pp2048,925.230726,0.768987,,1582,191.3,200,kein-x,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/power-sweep/pl200.bench.csv
+2026-10-19T23:56:31Z,power-sweep-pl225,clef 9B,Q8_0,CUDA,99,pp2048,961.655156,0.985748,,1670,218.4,225,kein-x,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/power-sweep/pl225.bench.csv
+2026-10-19T23:56:31Z,power-sweep-pl250,clef 9B,Q8_0,CUDA,99,pp2048,996.686165,0.918739,,1746,244.7,250,kein-x,580.178.04,b11739 (0ce8cd114),clef-bench-20261020/power-sweep/pl250.bench.csv
+2026-10-19,cuda-20261019-bench-580-jit1,clef 9B,Q8_0,CUDA,99,pp512,1005.86,0.00,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),cuda-20261019/bench-580-jit1.txt
+2026-10-19,cuda-20261019-bench-580-jit2,clef 9B,Q8_0,CUDA,99,pp512,996.85,0.00,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),cuda-20261019/bench-580-jit2.txt
+2026-10-19,cuda-20261019-bench-580-fa0,clef 9B,Q8_0,CUDA,99,pp512,1001.48,3.76,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),cuda-20261019/bench-580.md
+2026-10-19,cuda-20261019-bench-580-fa0,clef 9B,Q8_0,CUDA,99,pp2048,1001.43,0.66,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),cuda-20261019/bench-580.md
+2026-10-19,cuda-20261019-bench-580-fa1,clef 9B,Q8_0,CUDA,99,pp512,992.36,3.87,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),cuda-20261019/bench-580.md
+2026-10-19,cuda-20261019-bench-580-fa1,clef 9B,Q8_0,CUDA,99,pp2048,1000.13,2.28,,,,,unbekannt,580.178.04,b11739 (0ce8cd114),cuda-20261019/bench-580.md
+2026-10-19,cuda-20261019-ausgangsmessung-cpu,clef 9B,Q8_0,CPU,0,pp512,54.64,0.25,,,,,unbekannt,550.163.01,b11739 (0ce8cd114),cuda-20261019/ausgangsmessung-550.txt
+2026-10-19T16:08Z,forsch-ollama-prefill-gpu-vulkan,qwen3.5 9B,Q4_K_M,Ollama-Vulkan,,prefill,191,,,,,,unbekannt,550.163.01,nicht belegt (Ollama),forschungsrunde-20261019/messung-cpu-prefill-20261019.txt
+2026-10-19T16:08Z,forsch-ollama-prefill-cpu,qwen3.5 9B,Q4_K_M,Ollama-CPU,,prefill,63,,,,,,unbekannt,550.163.01,nicht belegt (Ollama),forschungsrunde-20261019/messung-cpu-prefill-20261019.txt

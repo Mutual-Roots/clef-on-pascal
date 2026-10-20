@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Switches to the GPU power profile %i (e.g. fordiverse-gpu-power@spiele.service); used by gpu-power.
+# Install: /etc/systemd/system/; gpu_power.sh goes to /usr/local/lib/fordiverse-gpu/.
+[Unit]
+Description=GPU power profile %i
+Documentation=file:///usr/local/lib/fordiverse-gpu/gpu_power.sh
+After=fordiverse-gpu-power.service nvidia-persistenced.service
+
+[Service]
+Type=oneshot
+RuntimeDirectory=fordiverse-gpu
+RuntimeDirectoryPreserve=yes
+ExecStart=/usr/local/lib/fordiverse-gpu/gpu_power.sh apply %i

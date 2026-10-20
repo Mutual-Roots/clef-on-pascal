@@ -1,0 +1,202 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# llama-swap: Clef decision models on a GTX 1080 Ti (11 GiB).
+# Tested with llama-swap v265 and llama.cpp b11739 (CUDA 12.8 build, driver 580.178.04).
+#
+# Host values are NOT in this file. They come from host.env (see host.env.example), loaded by the
+# systemd unit as EnvironmentFile; config.yaml refers to them via ${env.NAME}. A missing variable
+# stops llama-swap from loading the config (loud failure instead of a silent default).
+# Model files are expected in Hugging Face layout below FORDIVERSE_MODELLE: <org>/<repo>/<revision>/<file>.
+#
+# Clef is a decision model (architecture 'clef', served by llama-server on /v1/systemone):
+#   POST /v1/systemone {"model": ID, "state": "...", "questions": {QID: {"type": "noul"|"choice"|"score",
+#        "instructions": "...", "criteria": {...}}}}  -> {"answers": {QID: {...probabilities...}}}
+# The whole input (state + all questions) must fit into ONE physical batch, so -c = -b = -ub is the
+# maximum input length in tokens; longer inputs get HTTP 500 "input (N tokens) is too large".
+#
+# Operating profiles (switch: PUT /api/profiles/active {"name": "..."}, or the UI; a restart returns to 'paar'):
+#   paar      default. Flash all on GPU + 27B with weights in RAM (GPU computes), both loaded together.
+#   flash     Flash alone, long inputs (8192 tokens), frees the RAM held by the 27B weights.
+#   27b-solo  27B with 32 of 64 blocks on the GPU, exclusive (unloads everything else).
+# Stable client IDs follow the active profile: clef-schnell, clef-gross. A pin set to ~ answers 404
+# on purpose (no silent fallback to another model). Concrete model IDs stay addressable directly.
+#
+# VRAM measured 2026-10-20 (single process, after a maximal request, display idle = 110 MiB):
+#   clef-flash 8974 MiB | clef-27b 1164 MiB | paar together 10038 MiB
+#   clef-flash-solo 10512 MiB | clef-27b-solo 10196 MiB
+# Prefill measured through llama-swap at a 175 W power limit (input 1660 tokens; flash-solo 6952 tokens):
+#   paar: flash 876 t/s, 27b 210 t/s; both at once 481 + 170 t/s | flash-solo 808 t/s | 27b-solo 230 t/s
+#   The 27B with ngl 0 has a floor of ~2.7 s per request (presumably the weight transfer over PCIe),
+#   27b-solo ~2.0 s.
+#
+# Security: no apiKeys are set and the model processes listen on 127.0.0.1:8471+ without a key, so
+# every local user can reach them directly. Add keys before using this on a shared machine.
+
+healthCheckTimeout: 300
+logLevel: info
+logTimeFormat: rfc3339
+logToStdout: "proxy,upstream"
+startPort: 8471
+globalTTL: 0
+unloadTimeout: 15
+performance:
+  every: 15s
+security:
+  cors:
+    allowedOrigins:
+      - "http://127.0.0.1:8470"
+
+macros:
+  llama_bin: "${env.FORDIVERSE_LLAMA_BIN}"
+  llama_libpath: "${env.FORDIVERSE_LLAMA_LIBPATH}"
+  modelle: "${env.FORDIVERSE_MODELLE}"
+  cuda_cache: "${env.FORDIVERSE_CUDA_CACHE}"
+  clef_flash_gguf: "${modelle}/ggml-org/Clef-Flash-GGUF/8aa35d1cc7e1/Clef-Flash-Q8_0.gguf"
+  clef_27b_gguf: "${modelle}/ggml-org/Clef-GGUF/0d00bcc5bb45/Clef-Q4_K_M.gguf"
+  # One slot, loopback only; the response names the llama-swap ID instead of the file path.
+  # --fit off: a wrong VRAM assumption fails loudly instead of silently shrinking layers or context.
+  # No --no-webui: llama-swap's preload probes GET / on the upstream; with the UI off that answers 404
+  # and llama-swap logs a false "[ERROR] failed to preload model" although the model is ready.
+  clef_server: "${llama_bin}/llama-server --host 127.0.0.1 --port ${PORT} --alias ${MODEL_ID} -np 1 --fit off"
+
+models:
+  clef-flash:
+    name: "Clef-Flash 9B Q8_0 (paar)"
+    description: "All 32 blocks on GPU, max input 2048 tokens. Member of group paar."
+    cmd: |
+      ${clef_server}
+      -m ${clef_flash_gguf}
+      -ngl 99
+      -c 2048 -b 2048 -ub 2048
+    proxy: "http://127.0.0.1:${PORT}"
+    env:
+      - "LD_LIBRARY_PATH=${llama_libpath}"
+      - "CUDA_CACHE_PATH=${cuda_cache}"
+      - "CUDA_CACHE_MAXSIZE=4294967296"
+    ttl: 0
+    capabilities:
+      in: [text]
+      out: [decisions]
+      context: 2048
+    metadata:
+      profile: paar
+      max_input_tokens: 2048
+      vram_mib: 8974
+
+  clef-27b:
+    name: "Clef 27B Q4_K_M (paar)"
+    description: "Weights in RAM (ngl 0), GPU computes the batches. Max input 2048 tokens. Member of group paar."
+    cmd: |
+      ${clef_server}
+      -m ${clef_27b_gguf}
+      -ngl 0
+      -c 2048 -b 2048 -ub 2048
+    proxy: "http://127.0.0.1:${PORT}"
+    env:
+      - "LD_LIBRARY_PATH=${llama_libpath}"
+      - "CUDA_CACHE_PATH=${cuda_cache}"
+      - "CUDA_CACHE_MAXSIZE=4294967296"
+    ttl: 0
+    capabilities:
+      in: [text]
+      out: [decisions]
+      context: 2048
+    metadata:
+      profile: paar
+      max_input_tokens: 2048
+      vram_mib: 1164
+
+  clef-flash-solo:
+    name: "Clef-Flash 9B Q8_0 (flash, long input)"
+    description: "All 32 blocks on GPU, max input 8192 tokens. Group flash, exclusive."
+    cmd: |
+      ${clef_server}
+      -m ${clef_flash_gguf}
+      -ngl 99
+      -c 8192 -b 8192 -ub 8192
+    proxy: "http://127.0.0.1:${PORT}"
+    env:
+      - "LD_LIBRARY_PATH=${llama_libpath}"
+      - "CUDA_CACHE_PATH=${cuda_cache}"
+      - "CUDA_CACHE_MAXSIZE=4294967296"
+    ttl: 0
+    capabilities:
+      in: [text]
+      out: [decisions]
+      context: 8192
+    metadata:
+      profile: flash
+      max_input_tokens: 8192
+      vram_mib: 10512
+
+  clef-27b-solo:
+    name: "Clef 27B Q4_K_M (27b-solo)"
+    description: "32 of 64 blocks on GPU, max input 2048 tokens. Group 27b-solo, exclusive."
+    cmd: |
+      ${clef_server}
+      -m ${clef_27b_gguf}
+      -ngl 32
+      -c 2048 -b 2048 -ub 2048
+    proxy: "http://127.0.0.1:${PORT}"
+    env:
+      - "LD_LIBRARY_PATH=${llama_libpath}"
+      - "CUDA_CACHE_PATH=${cuda_cache}"
+      - "CUDA_CACHE_MAXSIZE=4294967296"
+    ttl: 0
+    capabilities:
+      in: [text]
+      out: [decisions]
+      context: 2048
+    metadata:
+      profile: 27b-solo
+      max_input_tokens: 2048
+      vram_mib: 10196
+
+profiles:
+  paar:
+    description: "Default: Flash on GPU + 27B from RAM, both loaded"
+    pins:
+      clef-schnell: clef-flash
+      clef-gross: clef-27b
+  flash:
+    description: "Flash alone with 8192-token inputs; no 27B"
+    pins:
+      clef-schnell: clef-flash-solo
+      clef-gross: ~
+  27b-solo:
+    description: "27B with 32 blocks on GPU, exclusive; no Flash"
+    pins:
+      clef-schnell: ~
+      clef-gross: clef-27b-solo
+
+hooks:
+  on_startup:
+    profile: paar
+    preload:
+      - clef-flash
+      - clef-27b
+
+routing:
+  router:
+    use: group
+    settings:
+      groups:
+        # paar: both members run together (swap false); loading a member unloads the solo groups
+        # (exclusive true). persistent stays false on purpose: persistent would forbid 27b-solo from
+        # unloading the pair, and 27b-solo next to the pair does not fit into 11 GiB.
+        paar:
+          swap: false
+          exclusive: true
+          persistent: false
+          members:
+            - clef-flash
+            - clef-27b
+        flash:
+          swap: true
+          exclusive: true
+          members:
+            - clef-flash-solo
+        27b-solo:
+          swap: true
+          exclusive: true
+          members:
+            - clef-27b-solo

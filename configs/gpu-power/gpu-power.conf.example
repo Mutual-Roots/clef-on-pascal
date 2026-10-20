@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# GPU power profiles for scripts/gpu_power.sh and fordiverse-gpu-power[@].service.
+# Install as /etc/fordiverse/gpu/gpu.conf (or append these keys to it), or point GPU_CONF elsewhere.
+#
+# Basis: power sweep 2026-10-19, data/messungen.csv rows power-sweep-pl*: Clef-Flash 9B Q8_0, pp2048,
+# no X server; power and SM clock are medians over the trace of each point; tok/J = t/s / W.
+#   limit   t/s     W (median)  SM MHz  tok/J
+#   125 W   548.3   124.3        898    4.41   excluded: slower and less efficient than 150 W
+#   150 W   732.7   149.3       1240    4.91   leise
+#   175 W   875.6   171.5       1480    5.11   ki-effizient (optimum)
+#   200 W   925.2   191.3       1582    4.84
+#   225 W   961.7   218.4       1670    4.40
+#   250 W   996.7   244.7       1746    4.07   spiele (default limit of the card)
+# GPU_POWER_MIN_W/MAX_W are the range allowed by the sweep, not the hardware range.
+GPU_POWER_PROFILE_DEFAULT=ki-effizient
+GPU_POWER_MIN_W=150
+GPU_POWER_MAX_W=250
+GPU_POWER_W_ki_effizient=175
+GPU_POWER_W_spiele=250
+GPU_POWER_W_leise=150

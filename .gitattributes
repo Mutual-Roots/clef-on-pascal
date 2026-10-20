@@ -1,0 +1,3 @@
+# Zeilenenden festhalten: Skripte und Texte LF; data/ byte-genau (SHA256SUMS)
+* text=auto eol=lf
+data/** -text

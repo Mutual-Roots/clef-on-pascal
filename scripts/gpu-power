@@ -1,0 +1,19 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-or-later
+# gpu-power - show or switch the GPU power profile (switching goes through systemd, needs root or sudo).
+# Usage: gpu-power [status] | list | PROFILE      (GPU_POWER_LIB overrides the location of gpu_power.sh)
+set -Eeuo pipefail
+LIB=${GPU_POWER_LIB:-/usr/local/lib/fordiverse-gpu/gpu_power.sh}
+[ -x "$LIB" ] || { echo "ABORT: $LIB not found or not executable (set GPU_POWER_LIB)" >&2; exit 2; }
+case "${1:-status}" in
+  status|list) exec "$LIB" "${1:-status}" ;;
+  -h|--help) sed -n '3,4p' "$0"; exec "$LIB" list ;;
+  *)
+    p=$1
+    [[ "$p" =~ ^[a-z][a-z0-9-]*$ ]] || { echo "invalid profile: $p" >&2; exit 2; }
+    unit="fordiverse-gpu-power@$p.service"
+    if [ "$(id -u)" -eq 0 ]; then run=(systemctl start "$unit"); else run=(sudo systemctl start "$unit"); fi
+    "${run[@]}" || { echo "switch to $p failed; reason: journalctl -u $unit -n 5" >&2; exit 1; }
+    exec "$LIB" status
+    ;;
+esac
